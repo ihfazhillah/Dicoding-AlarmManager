@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Dicoding_AlarmManager</string>
+    <string name="masukkan_pesan">Masukkan Pesan</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="set_one_time_alarm">Set one time alarm</string>
 </resources>
