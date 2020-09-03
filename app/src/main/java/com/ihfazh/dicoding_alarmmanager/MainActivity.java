@@ -10,6 +10,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, DatePickerFragment.DialogDateListener, TimePickerFragment.DialogTimeListener{
 
     TextView tvOnceDate, tvOnceTime;
@@ -72,11 +76,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onDialogDateSet(String tag, int year, int month, int dayOfMonth) {
-
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, dayOfMonth);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        tvOnceDate.setText(
+                dateFormat.format(calendar.getTime())
+        );
     }
 
     @Override
     public void onTimeSet(String tag, int hour, int minute) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm", Locale.getDefault());
+
+        switch (tag){
+            case TIME_PICKER_ONCE_TAG:
+                tvOnceTime.setText(dateFormat.format(calendar.getTime()));
+                break;
+            default:
+                break;
+        }
 
     }
 }
