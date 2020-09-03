@@ -42,6 +42,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         int notifId = type.equalsIgnoreCase(TYPE_ONE_TIME) ? ID_ONE_TIME : ID_REPEATING;
 
         showToast(context, title, message);
+        showAlarmNotification(context, title, message, notifId);
     }
 
     private void showToast(Context context, String title, String message) {
@@ -52,7 +53,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         String dateFormat = "yyyy-MM-dd";
         String timeFormat = "HH:mm";
 
+        System.out.println("Hello world");
         if (dateInvalid(date, dateFormat) || dateInvalid(time, timeFormat)) return;
+        System.out.println("Hello lagi world");
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -120,10 +123,10 @@ public class AlarmReceiver extends BroadcastReceiver {
             DateFormat df = new SimpleDateFormat(timeFormat, Locale.getDefault());
             df.setLenient(false);
             df.parse(time);
-            return true;
+            return false;
         } catch (ParseException e) {
             e.printStackTrace();
-            return false;
+            return true;
         }
     }
 }
