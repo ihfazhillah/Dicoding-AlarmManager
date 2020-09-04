@@ -129,4 +129,31 @@ public class AlarmReceiver extends BroadcastReceiver {
             return true;
         }
     }
+
+    public void setRepeatAlarmManager(Context context, String type, String time, String message) {
+        String timeFormat = "HH:mm";
+
+        if (dateInvalid(time, timeFormat)) return;
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(EXTRA_TYPE, type);
+
+        String[] timeArray = time.split(":");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]));
+        calendar.set(Calendar.SECOND, 0);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_ONE_TIME, intent, 0);
+
+        if (alarmManager != null){
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+
+        Toast.makeText(context, "Repeating alarm set", Toast.LENGTH_SHORT).show();
+
+    }
 }
