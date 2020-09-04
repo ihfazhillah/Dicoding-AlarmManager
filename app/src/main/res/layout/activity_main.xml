@@ -112,7 +112,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_set_repeat_button"
+            android:layout_weight="1"
             android:text="Set Repeat alarm"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_cancel_repeat_alarm"
+            android:layout_weight="1"
+            android:text="Cancel"/>
     </LinearLayout>
 
 
