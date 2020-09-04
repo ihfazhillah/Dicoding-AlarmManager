@@ -147,7 +147,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]));
         calendar.set(Calendar.SECOND, 0);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_ONE_TIME, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0);
 
         if (alarmManager != null){
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
@@ -163,10 +163,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         int requestCode = type.equalsIgnoreCase(TYPE_ONE_TIME) ? ID_ONE_TIME: ID_REPEATING;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
         pendingIntent.cancel();
-
-        if (alarmManager != null){
-            alarmManager.cancel(pendingIntent);
-        }
+        alarmManager.cancel(pendingIntent);
+//
+//        if (alarmManager != null){
+//            alarmManager.cancel(pendingIntent);
+//        }
 
         Toast.makeText(context, "Repeating alarm dibatalkan", Toast.LENGTH_SHORT).show();
     }
